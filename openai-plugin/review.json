@@ -3,7 +3,7 @@
   "review": {
     "commerce": false,
     "commerce_description": "",
-    "demo_recording_url": "TODO: record a 2-minute walkthrough in ChatGPT developer mode and paste the URL",
+    "demo_recording_url": "https://haulest.com/media/haulest-mcp-demo.mp4",
     "test_cases": {
       "positive": [
         {

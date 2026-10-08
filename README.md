@@ -39,6 +39,8 @@ Step-by-step for each client: [docs/connecting.md](docs/connecting.md).
 
 ## Try it
 
+Ninety-second demo in ChatGPT (cost range, USDOT check, quote request with consent): [docs/haulest-demo.mp4](docs/haulest-demo.mp4), also at https://haulest.com/media/haulest-mcp-demo.mp4. Music: "Ambient Piano Guitar Texture E" by deadrobotmusic on Freesound, CC0.
+
 - "What would it cost to move a 2-bedroom from Austin to Denver, and who are the best-reviewed movers in Austin?"
 - "Check USDOT 3391195 before I pay a deposit."
 - "Give me the 8-week moving checklist and the guide on binding versus non-binding estimates."
