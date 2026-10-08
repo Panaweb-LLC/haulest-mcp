@@ -3,19 +3,30 @@
   "name": "haulest",
   "version": "1.0.0",
   "description": "Moving cost ranges, reviewed movers and licence checks, guides, checklists, and written quotes from licensed movers in the US, Canada, and UK.",
-  "author": { "name": "Panaweb LLC", "email": "info@haulest.com", "url": "https://haulest.com" },
+  "author": {
+    "name": "Panaweb LLC",
+    "email": "info@haulest.com",
+    "url": "https://haulest.com"
+  },
   "homepage": "https://haulest.com/developers/mcp",
   "repository": "https://github.com/Panaweb-LLC/haulest-mcp",
   "license": "MIT",
-  "keywords": ["moving", "movers", "relocation", "moving cost", "USDOT", "removals"],
+  "keywords": [
+    "moving",
+    "movers",
+    "relocation",
+    "moving cost",
+    "USDOT",
+    "removals"
+  ],
   "extensions": {
     "com.openai": {
       "interface": {
         "displayName": "Haulest",
-        "shortDescription": "Plan a move, vet movers, get quotes",
+        "shortDescription": "Plan a move and vet movers",
         "longDescription": "Haulest helps people in the United States, Canada, and the United Kingdom plan a home move.\n\nAsk for a research cost range by home size and distance, see which movers near a place have dated, attributed reviews, open one company's profile with its licence identifiers and the live FMCSA authority record, look a USDOT or MC number up before paying a deposit, read the guides on binding versus non-binding estimates, deposits, damage claims, and timing, and pull a moving checklist. When you are ready, Haulest can take a quote request so licensed movers call and email you with written estimates; you decide, and your consent is asked for first.\n\nHaulest is a consumer research and quote site run by Panaweb LLC. It is not a carrier, does not operate trucks, and its cost figures are planning ranges compiled from published industry tables and public quotes, never bids. Ratings are the mean of real, dated reviews on record.",
         "developerName": "Panaweb LLC",
-        "category": "Lifestyle",
+        "category": "Travel",
         "capabilities": [
           "Research cost range for a move by home size and distance (US, CA, UK)",
           "Route facts: driving miles and hours, cost ranges, migration flows",
@@ -40,7 +51,11 @@
         "logo": "./assets/logo.png"
       },
       "publication": {
-        "countries": ["US", "CA", "GB"],
+        "countries": [
+          "US",
+          "CA",
+          "GB"
+        ],
         "release_notes": "First release: eight tools, one prompt, two resources. No sign-in."
       }
     }
