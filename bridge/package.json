@@ -1,0 +1,24 @@
+{
+  "name": "haulest-mcp",
+  "version": "1.0.0",
+  "description": "stdio bridge to the Haulest MCP server (moving cost ranges, mover reviews and licence checks, quote requests) for clients that cannot speak Streamable HTTP yet.",
+  "type": "module",
+  "bin": { "haulest-mcp": "./bin/haulest-mcp.mjs" },
+  "files": ["bin", "README.md"],
+  "engines": { "node": ">=20" },
+  "mcpName": "com.haulest/haulest",
+  "keywords": ["mcp", "model-context-protocol", "moving", "movers", "relocation", "haulest"],
+  "homepage": "https://haulest.com/developers/mcp",
+  "repository": { "type": "git", "url": "https://github.com/Panaweb-LLC/haulest-mcp.git", "directory": "bridge" },
+  "bugs": { "url": "https://github.com/Panaweb-LLC/haulest-mcp/issues" },
+  "license": "MIT",
+  "author": "Panaweb LLC <info@haulest.com> (https://haulest.com)",
+  "scripts": {
+    "start": "node bin/haulest-mcp.mjs",
+    "test": "node --test test/bridge.test.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/client": "^2.3.1",
+    "@modelcontextprotocol/server": "^2.3.1"
+  }
+}

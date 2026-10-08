@@ -1,0 +1,462 @@
+{
+  "generatedFrom": "https://haulest.com/mcp",
+  "generatedAt": "2026-10-07",
+  "count": 8,
+  "tools": [
+    {
+      "name": "estimate_moving_cost",
+      "title": "Estimate moving cost",
+      "description": "Returns Haulest's research planning range (low and high, with currency) for a household move in the United States, Canada, or the United Kingdom, from home size and distance. Pass a distance band, a mileage, or an origin and destination; the tool resolves the distance from stored route data where it can. The range is compiled from published industry tables and public quotes, not a bid from a mover. Use it when someone asks what a move might cost.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "homeSize": {
+            "type": "string",
+            "enum": [
+              "studio",
+              "1bed",
+              "2bed",
+              "3bed",
+              "4bed"
+            ],
+            "description": "Home size: studio, 1bed, 2bed, 3bed, or 4bed (4bed covers larger homes)."
+          },
+          "market": {
+            "description": "Country: us, ca, or uk. Inferred from the places when omitted; defaults to us.",
+            "type": "string",
+            "enum": [
+              "us",
+              "ca",
+              "uk"
+            ]
+          },
+          "distanceBand": {
+            "description": "Distance band when known: local (under 50 mi; UK under 20), regional, mid, long, cross-country.",
+            "type": "string",
+            "enum": [
+              "local",
+              "regional",
+              "mid",
+              "long",
+              "cross-country"
+            ]
+          },
+          "from": {
+            "description": "Origin city or town, e.g. \"Austin, TX\" or \"London\".",
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "to": {
+            "description": "Destination city or town.",
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120
+          },
+          "miles": {
+            "description": "Driving distance in miles when the user already knows it.",
+            "type": "number",
+            "minimum": 0,
+            "maximum": 10000
+          }
+        },
+        "required": [
+          "homeSize"
+        ]
+      },
+      "annotations": {
+        "title": "Estimate moving cost",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "openai/toolInvocation/invoking": "Looking up the Haulest cost range",
+        "openai/toolInvocation/invoked": "Cost range ready"
+      }
+    },
+    {
+      "name": "get_route_facts",
+      "title": "Get route facts",
+      "description": "Facts about a city-to-city moving lane that Haulest has a route page for: driving miles and hours, the research cost range by home size, how many households moved between the two states in the latest Census flow, and the page URL. Covers the main US, Canadian, and UK lanes. Use it when someone names both ends of a move; returns a clear not-covered message otherwise.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "from": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120,
+            "description": "Origin city, e.g. \"Austin\" or \"Austin, TX\"."
+          },
+          "to": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120,
+            "description": "Destination city."
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ]
+      },
+      "annotations": {
+        "title": "Get route facts",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "openai/toolInvocation/invoking": "Reading the route page",
+        "openai/toolInvocation/invoked": "Route facts ready"
+      }
+    },
+    {
+      "name": "find_movers",
+      "title": "Find movers near a place",
+      "description": "Lists moving companies Haulest holds dated, attributed reviews for in a city, state, province, or country (US, Canada, UK), with the average rating, the number of reviews on record, the newest review date, the USDOT number where there is one, and the profile URL. Ratings are means of real reviews on record; Haulest does not rank companies by payment. Use it when someone wants movers in a place; follow with the profile tool for one company.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "place": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120,
+            "description": "City, state or province, or country, e.g. \"Denver, CO\", \"Ontario\", \"Manchester\", \"Canada\"."
+          },
+          "market": {
+            "description": "Country to prefer when a place name exists in more than one: us, ca, or uk.",
+            "type": "string",
+            "enum": [
+              "us",
+              "ca",
+              "uk"
+            ]
+          },
+          "limit": {
+            "description": "How many companies to return, 1 to 10. Default 6.",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "minReviews": {
+            "description": "Only companies with at least this many dated reviews on record.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "sort": {
+            "description": "recommended (default), newest review, highest rating, or lowest rating.",
+            "type": "string",
+            "enum": [
+              "recommended",
+              "newest",
+              "highest",
+              "lowest"
+            ]
+          }
+        },
+        "required": [
+          "place"
+        ]
+      },
+      "annotations": {
+        "title": "Find movers near a place",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "openai/toolInvocation/invoking": "Searching Haulest's mover directory",
+        "openai/toolInvocation/invoked": "Movers found"
+      }
+    },
+    {
+      "name": "get_mover_profile",
+      "title": "Get a mover's profile",
+      "description": "One moving company in detail from its Haulest profile: rating and review counts, the three newest dated reviews, licence identifiers (USDOT, MC) with the live FMCSA authority and insurance summary when available, the company's own phone number from a public record, what reviewers paid, short checkable strengths and questions to ask, and the profile URL. Use it after find_movers or when someone names a company that has a Haulest page.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 160,
+            "description": "The company slug from find_movers, or the last part of a haulest.com/movers/... URL."
+          }
+        },
+        "required": [
+          "slug"
+        ]
+      },
+      "annotations": {
+        "title": "Get a mover's profile",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "_meta": {
+        "openai/toolInvocation/invoking": "Opening the company profile",
+        "openai/toolInvocation/invoked": "Profile ready"
+      }
+    },
+    {
+      "name": "check_mover_licence",
+      "title": "Check a mover's licence record",
+      "description": "Looks a moving company up in the official register: for the United States, the FMCSA census by USDOT, MC, or legal name, with live operating authority, insurance on file, and safety rating when available; for the United Kingdom, Companies House by name or number. Returns the official record URL to confirm on. For Canada it explains the provincial checks instead. Use it before anyone pays a deposit or when a quote names a USDOT.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120,
+            "description": "USDOT number, MC number, or company legal name (US); company name or number (UK)."
+          },
+          "market": {
+            "description": "us (FMCSA, default), uk (Companies House), or ca (guidance only; Canada has no federal mover licence).",
+            "type": "string",
+            "enum": [
+              "us",
+              "uk",
+              "ca"
+            ]
+          }
+        },
+        "required": [
+          "query"
+        ]
+      },
+      "annotations": {
+        "title": "Check a mover's licence record",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "_meta": {
+        "openai/toolInvocation/invoking": "Checking the official register",
+        "openai/toolInvocation/invoked": "Licence record ready"
+      }
+    },
+    {
+      "name": "search_moving_guides",
+      "title": "Search Haulest guides",
+      "description": "Searches Haulest's written guides, calculators, and checklists about hiring movers, estimates, deposits, consumer rights (US interstate rules, UK and Canadian practice), packing, and timing. Returns each match's title, one-paragraph answer, and URL. Use it for how-to and what-does-this-mean questions about moving.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 160,
+            "description": "What the person wants to know, e.g. \"binding estimate\", \"tipping movers\", \"deposit\", \"damage claim\", \"when to book\"."
+          },
+          "limit": {
+            "description": "How many results, 1 to 8. Default 5.",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8
+          }
+        },
+        "required": [
+          "query"
+        ]
+      },
+      "annotations": {
+        "title": "Search Haulest guides",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "openai/toolInvocation/invoking": "Searching Haulest guides",
+        "openai/toolInvocation/invoked": "Guides found"
+      }
+    },
+    {
+      "name": "get_moving_checklist",
+      "title": "Get a moving checklist",
+      "description": "Returns one of Haulest's checklists in full, grouped by section: the 8-week countdown, moving day, the first-night box, change of address for the US, Canada, or UK, or the 12-week international list. Use it when someone wants a to-do list for a move.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "list": {
+            "type": "string",
+            "enum": [
+              "8-week",
+              "moving-day",
+              "first-night",
+              "change-of-address-us",
+              "change-of-address-ca",
+              "change-of-address-uk",
+              "12-week-international"
+            ],
+            "description": "Which checklist."
+          }
+        },
+        "required": [
+          "list"
+        ]
+      },
+      "annotations": {
+        "title": "Get a moving checklist",
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "openai/toolInvocation/invoking": "Fetching the checklist",
+        "openai/toolInvocation/invoked": "Checklist ready"
+      }
+    },
+    {
+      "name": "request_moving_quotes",
+      "title": "Request moving quotes",
+      "description": "Submits a quote request to Haulest so licensed movers can call and email the person with written estimates for the move. Haulest is not a carrier; it introduces the request to movers through its lead desk, and in the US and UK the desk may phone within minutes. Call this only after the person has given their name, phone, and email for this purpose and has explicitly agreed to be contacted (consent must be true); confirm the details back to them first. Each call creates one request; a repeat with the same phone or email within a day is recognised and not duplicated. Returns a request reference and what happens next.",
+      "inputSchema": {
+        "type": "object",
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {
+          "from": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120,
+            "description": "Where the move starts: city and state/province, or a postcode."
+          },
+          "to": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120,
+            "description": "Where it ends."
+          },
+          "moveDate": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "description": "Planned move date, YYYY-MM-DD, today or later."
+          },
+          "homeSize": {
+            "type": "string",
+            "enum": [
+              "studio",
+              "1bed",
+              "2bed",
+              "3bed",
+              "4bed"
+            ],
+            "description": "studio, 1bed, 2bed, 3bed, or 4bed."
+          },
+          "name": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 120,
+            "description": "The person's name."
+          },
+          "phone": {
+            "type": "string",
+            "minLength": 7,
+            "maxLength": 20,
+            "description": "A phone number the movers may call."
+          },
+          "email": {
+            "type": "string",
+            "maxLength": 160,
+            "format": "email",
+            "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
+            "description": "Their email."
+          },
+          "consent": {
+            "type": "boolean",
+            "description": "Must be true: the person has explicitly agreed that Haulest may share these details with licensed movers who will call and email about this move."
+          },
+          "moveType": {
+            "description": "local, distance (long distance), or international.",
+            "type": "string",
+            "enum": [
+              "local",
+              "distance",
+              "international"
+            ]
+          },
+          "dateFlex": {
+            "description": "How fixed the date is.",
+            "type": "string",
+            "enum": [
+              "exact",
+              "week",
+              "month",
+              "unsure"
+            ]
+          },
+          "packing": {
+            "description": "Packing wanted: full pack, fragile only, or self pack.",
+            "type": "string",
+            "enum": [
+              "full",
+              "fragile",
+              "self"
+            ]
+          },
+          "storage": {
+            "description": "Storage needed.",
+            "type": "boolean"
+          },
+          "callWindow": {
+            "description": "Best time to call.",
+            "type": "string",
+            "enum": [
+              "now",
+              "morning",
+              "afternoon",
+              "evening"
+            ]
+          },
+          "notes": {
+            "description": "Anything else the movers should know: stairs, piano, elevator booking, access.",
+            "type": "string",
+            "maxLength": 1000
+          },
+          "excludeMoverSlug": {
+            "description": "Haulest slug of a company the person does NOT want quotes from, e.g. one they already have a quote from.",
+            "type": "string",
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "from",
+          "to",
+          "moveDate",
+          "homeSize",
+          "name",
+          "phone",
+          "email",
+          "consent"
+        ]
+      },
+      "annotations": {
+        "title": "Request moving quotes",
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      },
+      "_meta": {
+        "openai/toolInvocation/invoking": "Sending the quote request to Haulest",
+        "openai/toolInvocation/invoked": "Quote request received"
+      }
+    }
+  ]
+}

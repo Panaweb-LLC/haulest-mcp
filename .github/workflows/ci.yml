@@ -1,0 +1,23 @@
+name: ci
+on:
+  push:
+  pull_request:
+jobs:
+  bridge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+        working-directory: bridge
+      - run: node --check bin/haulest-mcp.mjs
+        working-directory: bridge
+      - name: Validate manifests
+        run: |
+          node -e "JSON.parse(require('fs').readFileSync('server.json','utf8')); JSON.parse(require('fs').readFileSync('openai-plugin/plugin.json','utf8')); JSON.parse(require('fs').readFileSync('openai-plugin/mcp.json','utf8')); JSON.parse(require('fs').readFileSync('openai-plugin/review.json','utf8')); console.log('manifests ok')"
+      - name: Live endpoint answers
+        run: npm test
+        working-directory: bridge
+        continue-on-error: true
