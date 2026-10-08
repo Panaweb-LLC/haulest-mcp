@@ -1,5 +1,5 @@
 {
-  "_comment": "Review details for the OpenAI plugin portal. Paste into the Review details form or import; never put credentials in the ZIP. No test account is needed: the server has no sign-in.",
+  "_comment": "Review details for the OpenAI plugin portal (filled in the dashboard on 8 Oct 2026). Positive cases: prompts that should trigger a tool. Negative cases, in OpenAI's meaning: prompts where the plugin must NOT trigger even though the model might think it is relevant. No test account is needed: the server has no sign-in.",
   "review": {
     "commerce": false,
     "commerce_description": "",
@@ -9,52 +9,61 @@
         {
           "description": "Cost range from two cities. The tool resolves the distance from stored route data and returns a labelled research range with the calculator URL.",
           "prompt": "Using Haulest, what would it cost to move a 2-bedroom from Austin, TX to Denver, CO?",
-          "tools_triggered": ["estimate_moving_cost"],
+          "tools_triggered": [
+            "estimate_moving_cost"
+          ],
           "expected_behavior": "One call to estimate_moving_cost with homeSize 2bed, from Austin, to Denver. The answer gives a low and high in USD, says it is a research planning range as of September 2026 and not a bid, mentions about 930 miles, and links to haulest.com/calculators/cost."
         },
         {
           "description": "Reviewed movers near a city, then one profile.",
           "prompt": "Who are the best-reviewed movers in Denver on Haulest? Open the first one.",
-          "tools_triggered": ["find_movers", "get_mover_profile"],
+          "tools_triggered": [
+            "find_movers",
+            "get_mover_profile"
+          ],
           "expected_behavior": "find_movers with place Denver returns companies with average rating, review count, newest review date, USDOT, and a haulest.com/movers URL. get_mover_profile for the first slug returns the rating, three newest reviews, licence identifiers with the FMCSA authority summary, and the company phone from a public record."
         },
         {
           "description": "Licence check by USDOT.",
           "prompt": "Check USDOT 3391195 on Haulest before I pay a deposit.",
-          "tools_triggered": ["check_mover_licence"],
+          "tools_triggered": [
+            "check_mover_licence"
+          ],
           "expected_behavior": "check_mover_licence with query 3391195 returns the FMCSA census record (legal name, place, status, whether household goods is listed), the authority and insurance summary when available, the official SAFER URL, and the Haulest profile URL if one exists."
         },
         {
           "description": "Guides and a checklist.",
           "prompt": "From Haulest: the guide on binding versus non-binding estimates, and the 8-week moving checklist.",
-          "tools_triggered": ["search_moving_guides", "get_moving_checklist"],
+          "tools_triggered": [
+            "search_moving_guides",
+            "get_moving_checklist"
+          ],
           "expected_behavior": "search_moving_guides returns matching guide titles with a one-paragraph answer and URLs; get_moving_checklist with list 8-week returns the sections and items plus the printable URL."
         },
         {
           "description": "Quote request with consent. The model confirms details and consent before calling; the server answers with a reference and what happens next.",
           "prompt": "I want written quotes for my 3-bedroom move from Phoenix, AZ to Denver, CO on 2026-12-05. My name is Test Person, phone +1 555 010 0100, email test.person@example.com. Yes, I agree that Haulest may share this with licensed movers who will call and email me.",
-          "tools_triggered": ["request_moving_quotes"],
+          "tools_triggered": [
+            "request_moving_quotes"
+          ],
           "expected_behavior": "One call to request_moving_quotes with consent true. The answer gives a short request reference, says the Haulest desk will call, gives the Haulest number +1 (866) 961-9682 for changes, and says movers will follow up, and links the privacy page. A second identical prompt within a day returns the same reference marked as already received, not a new request."
         }
       ],
       "negative": [
         {
-          "description": "No consent given: the tool refuses and asks for it.",
-          "prompt": "Request quotes for my move from Austin to Denver next month, 2-bed. Name Test Person, phone +1 555 010 0100, email test.person@example.com. Do not share my details with anyone.",
-          "tools_triggered": ["request_moving_quotes"],
-          "expected_behavior": "The model should not call the tool, or if it does with consent false, the server returns an error saying consent is required and nothing is stored."
+          "description": "The word move is about a spreadsheet, not a home. Haulest must not trigger.",
+          "prompt": "How do I move a column to the front of my Excel sheet without breaking the formulas?",
+          "expected_behavior": "No Haulest tool is called."
         },
         {
-          "description": "Unknown place.",
-          "prompt": "Find movers in Zzzzville on Haulest.",
-          "tools_triggered": ["find_movers"],
-          "expected_behavior": "find_movers returns an error result saying no place called Zzzzville is in the directory and suggests trying a city with state or province, a state, or a country. No invented companies."
+          "description": "Moving average in finance. Nothing to do with relocation; Haulest must not trigger.",
+          "prompt": "Explain the difference between a 50-day and a 200-day moving average for a stock.",
+          "expected_behavior": "No Haulest tool is called."
         },
         {
-          "description": "Not enough information for a range.",
-          "prompt": "What does Haulest say a 3-bedroom move from Smallville to Nowhere costs?",
-          "tools_triggered": ["estimate_moving_cost"],
-          "expected_behavior": "estimate_moving_cost returns an error result listing the five distance bands and asking for the driving miles or a band. The model asks the user rather than inventing a number."
+          "description": "Emotional writing task about a friend relocating. No cost, mover, licence, or quote need; Haulest must not trigger.",
+          "prompt": "Write a short, warm goodbye card for my coworker who is moving to another city next week.",
+          "expected_behavior": "No Haulest tool is called."
         }
       ]
     }
