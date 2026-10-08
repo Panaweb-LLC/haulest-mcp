@@ -1,0 +1,5 @@
+{
+  "mcpServers": {
+    "haulest": { "type": "http", "url": "https://haulest.com/mcp" }
+  }
+}

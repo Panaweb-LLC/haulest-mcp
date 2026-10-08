@@ -6,7 +6,7 @@
 | Claude connectors directory (Anthropic) | https://claude.ai/directory/manage, MCP connector | `claude-connector/SUBMISSION.md` |
 | Official MCP Registry (registry.modelcontextprotocol.io) | `mcp-publisher login http --domain haulest.com --private-key ...` then `mcp-publisher publish server.json` | `server.json`; the public key line is served at https://haulest.com/.well-known/mcp-registry-auth (set on the Haulest desk) |
 | GitHub MCP Registry / VS Code gallery | Fed from the official registry once published | same `server.json` |
-| npm | `cd bridge && npm publish` (package `haulest-mcp`, `mcpName` set) | `bridge/` |
+| npm | `cd bridge && npm publish` (package `haulest-mcp`, `mcpName` set). After it is live, add the `packages` block back to `server.json` and republish | `bridge/` |
 | Glama | Add the GitHub repo at https://glama.ai/mcp/servers; `glama.json` names the maintainer | `glama.json` |
 | Smithery, mcp.so, PulseMCP, mcpservers.org, Cursor directory | Submit the repo URL and the endpoint through each site's form | README |
 

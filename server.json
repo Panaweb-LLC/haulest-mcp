@@ -2,23 +2,17 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.haulest/haulest",
   "title": "Haulest",
-  "description": "Moving cost ranges, reviewed movers, licence checks, guides, and quote requests for the US, Canada, and UK.",
-  "repository": { "url": "https://github.com/Panaweb-LLC/haulest-mcp", "source": "github" },
+  "description": "Moving cost ranges, reviewed movers, licence checks, guides, and quote requests.",
+  "repository": {
+    "url": "https://github.com/Panaweb-LLC/haulest-mcp",
+    "source": "github"
+  },
   "websiteUrl": "https://haulest.com/developers/mcp",
   "version": "1.0.0",
   "remotes": [
-    { "type": "streamable-http", "url": "https://haulest.com/mcp" }
-  ],
-  "packages": [
     {
-      "registryType": "npm",
-      "registryBaseUrl": "https://registry.npmjs.org",
-      "identifier": "haulest-mcp",
-      "version": "1.0.0",
-      "transport": { "type": "stdio" },
-      "environmentVariables": [
-        { "name": "HAULEST_MCP_KEY", "description": "Optional partner API key for higher rate limits.", "isRequired": false, "isSecret": true }
-      ]
+      "type": "streamable-http",
+      "url": "https://haulest.com/mcp"
     }
   ]
 }
