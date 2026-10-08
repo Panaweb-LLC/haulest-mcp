@@ -20,9 +20,9 @@
         },
         {
           "description": "Licence check by USDOT.",
-          "prompt": "Check USDOT 2250254 on Haulest before I pay a deposit.",
+          "prompt": "Check USDOT 3391195 on Haulest before I pay a deposit.",
           "tools_triggered": ["check_mover_licence"],
-          "expected_behavior": "check_mover_licence with query 2250254 returns the FMCSA census record (legal name, place, status, whether household goods is listed), the authority and insurance summary when available, the official SAFER URL, and the Haulest profile URL if one exists."
+          "expected_behavior": "check_mover_licence with query 3391195 returns the FMCSA census record (legal name, place, status, whether household goods is listed), the authority and insurance summary when available, the official SAFER URL, and the Haulest profile URL if one exists."
         },
         {
           "description": "Guides and a checklist.",

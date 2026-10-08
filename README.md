@@ -40,7 +40,7 @@ Step-by-step for each client: [docs/connecting.md](docs/connecting.md).
 ## Try it
 
 - "What would it cost to move a 2-bedroom from Austin to Denver, and who are the best-reviewed movers in Austin?"
-- "Check USDOT 2250254 before I pay a deposit."
+- "Check USDOT 3391195 before I pay a deposit."
 - "Give me the 8-week moving checklist and the guide on binding versus non-binding estimates."
 - "Are there reviewed removal companies in Manchester, and how do I check one at Companies House?"
 - "I have a quote from a low-rated mover. What should I ask them, and can you get me two more written quotes?"

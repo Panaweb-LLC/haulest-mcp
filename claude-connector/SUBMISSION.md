@@ -24,7 +24,7 @@ https://claude.com/docs/connectors/building/review-criteria.
 ## Example prompts (three or more, different tools)
 
 1. What would it cost to move a 2-bedroom from Austin to Denver, and who are the best-reviewed movers in Austin?
-2. Check USDOT 2250254 before I pay a deposit.
+2. Check USDOT 3391195 before I pay a deposit.
 3. Give me the 8-week moving checklist and the guide on binding versus non-binding estimates.
 4. Are there reviewed removal companies in Manchester, and how do I check one at Companies House?
 5. I have a quote from a low-rated mover. What should I ask them, and can you get me two more written quotes?
