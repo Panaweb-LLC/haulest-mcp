@@ -1,6 +1,6 @@
 {
   "generatedFrom": "https://haulest.com/mcp",
-  "generatedAt": "2026-10-07",
+  "generatedAt": "2026-10-08",
   "count": 8,
   "tools": [
     {
@@ -451,7 +451,7 @@
         "readOnlyHint": false,
         "destructiveHint": false,
         "idempotentHint": false,
-        "openWorldHint": false
+        "openWorldHint": true
       },
       "_meta": {
         "openai/toolInvocation/invoking": "Sending the quote request to Haulest",

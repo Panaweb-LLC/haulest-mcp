@@ -56,7 +56,7 @@ Step-by-step for each client: [docs/connecting.md](docs/connecting.md).
 | `check_mover_licence` | FMCSA census by USDOT, MC, or legal name (US); Companies House by name or number (UK); provincial guidance (Canada); always with the official record URL | read-only, open-world |
 | `search_moving_guides` | Guides, calculators, and checklists on estimates, deposits, damage claims, consumer rights, packing, and timing | read-only |
 | `get_moving_checklist` | A full checklist: 8-week, moving day, first night, change of address (US, CA, UK), 12-week international | read-only |
-| `request_moving_quotes` | Files a quote request so licensed movers call and email with written estimates. Requires `consent: true`; repeats within a day are recognised, not duplicated | write, never destructive |
+| `request_moving_quotes` | Files a quote request so licensed movers call and email with written estimates. Requires `consent: true`; repeats within a day are recognised, not duplicated | write, open-world, never destructive |
 
 Every tool carries a title and explicit `readOnlyHint`, `destructiveHint`, `idempotentHint`, and `openWorldHint` values. Each answer is plain text for the model plus a structured object with the same facts and the haulest.com URL it came from. The server also exposes a `plan_my_move` prompt and two resources (the full cost dataset as JSON, and an About text).
 
